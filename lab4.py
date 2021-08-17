@@ -597,7 +597,6 @@ def resumenestadisticohistograma():
         h= (test09(cadenadebits, len(cadenadebits)))
         i= (test12(cadenadebits, len(cadenadebits)))
         j= (test14(cadenadebits, len(cadenadebits)))
-        print(a)
         if(a[1] == False):
             lista.append('1')
             

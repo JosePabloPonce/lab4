@@ -4,7 +4,7 @@ Los tests estadísticos se utilizan para validar o rechazar las hipótesis de mo
 
 En este laboratorio se implementaron diez tests con el objetivo de evaluar la calidad de los generadores pseudoaleatorios creados en el laboratorio pasado. Luego se muestra una tabla con el resumen de los tests estadísticos y por último una gráfica en donde se pueden observar los tests qué fallaron. Esto se realizó con los tres  ejemplos de cadenas qué se implementaron en el Laboratorio 3. 
 
-METODOLOGÍA
+# METODOLOGÍA
 
 Batería de diez tests estadísticos 
 Se implementaron diez tests, los cuales se encuentran en los links de github brindado por el licenciado, a cada uno se le realizaron las modificaciones necesarias para funcionar con los generadores pseudoaleatorios. Los tests implementados son: 

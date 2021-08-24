@@ -8,6 +8,7 @@ import re
 import random
 from collections import Counter
 import pandas
+import struct
 
 def test01(input, n):
         
@@ -583,10 +584,11 @@ def resumenestadistico(cadenadebits):
 
     
 
-def resumenestadisticohistograma():
+def resumenestadisticohistograma(seedlst):
     lista =[]
+    lista2 = []
     for i in range (0, 1000):
-        cadenadebits = LCG()
+        cadenadebits = Wichmann_Hill(seedlst, 10**6,2)
         a= (test01(cadenadebits, len(cadenadebits)))
         b= (test02(cadenadebits, len(cadenadebits)))
         c= (test03(cadenadebits, len(cadenadebits)))
@@ -626,7 +628,38 @@ def resumenestadisticohistograma():
 
         if(j[1] == False):
             lista.append('10')
+            
+        if(a[1] == True):
+            lista2.append('1')
+            
+        if(b[1] == True):
+            lista2.append('2')
 
+        if(c[1] == True):
+            lista2.append('3')
+
+        if(d[1] == True):
+            lista2.append('4')
+
+        if(e[1] == True):
+            lista2.append('5')
+
+        if(f[1] == True):
+            lista2.append('6')
+
+        if(g[1] == True):
+            lista.append('7')
+
+        if(h[1] == True):
+            lista2.append('8')
+
+        if(i[1] == True):
+            lista2.append('9')
+
+        if(j[1] == True):
+            lista2.append('10')
+    
+    print(lista2)
     letter_counts = Counter(lista)
     df = pandas.DataFrame.from_dict(letter_counts, orient='index')
     df.plot(kind='bar')
@@ -645,7 +678,42 @@ def LCG(m=2**31-1, a=1103515245, b=12345):
             bits+=stb[i]
     return bits
 
-s1 = LCG()
+def trunc(f, n):
+    return math.floor(f * 10 ** n) / 10 ** n
 
-resumenestadistico(s1)
-resumenestadisticohistograma()
+
+def floatToBits(num):
+    return ''.join('{:0>8b}'.format(c) for c in struct.pack('!f', num))
+
+
+def Wichmann_Hill(seedlst,n,t2):
+    print("------------------------------------------------------Wichman Hill------------------------------------------------------------")
+    #n = input("Ingrese la longitud de la cadena de bits:\n")
+    numlist = []
+    binarylist = []
+    seed1 = seedlst[0]
+    seed2 = seedlst[1]
+    seed3 = seedlst[2]
+        
+    for i in range(int(n)):
+        seed1 = 171 * seed1 % 30269
+        seed2 = 172 * seed2 % 30307
+        seed3 = 170 * seed3 % 30323
+        numlist.append((float(seed1)/30269.0 + float(seed2)/30307.0 + float(seed3)/30323.0) % 1.0)
+        
+    for t in numlist:
+        #print(trunc(t,10))
+        binario = floatToBits(trunc(t,10))
+        binarylist.append(binario[int(-t2):])
+        #print(binario)
+        
+    concatenacion = ''.join(map(str, binarylist))
+    print(concatenacion[0:int(n)])
+    return(concatenacion[0:int(n)])
+
+seedlst = [random.randint(1, 30000),random.randint(1, 30000),random.randint(1, 30000)]
+s2 = Wichmann_Hill(seedlst, 10**6,2)
+#s1 = LCG()
+
+resumenestadistico(s2)
+resumenestadisticohistograma(seedlst)
